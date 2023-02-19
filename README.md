@@ -1,5 +1,8 @@
 # vue3-rick-and-morty
 
+## Deploy on Netlify
+Visit [https://alefiengo-vue3-rick-and-morty.netlify.app](https://alefiengo-vue3-rick-and-morty.netlify.app)
+
 ## Project setup
 ```
 npm install
