@@ -1,27 +1,25 @@
-# vue3-rick-and-morty
+# vue3-rick-and-morty (Vue 3 + Vite)
 
-## Deploy on Netlify
-Visit [https://alefiengo-vue3-rick-and-morty.netlify.app](https://alefiengo-vue3-rick-and-morty.netlify.app)
+Demo: https://alefiengo-vue3-rick-and-morty.netlify.app
 
-## Project setup
+## Requisitos
+- Node.js 22 (LTS)
+
+## Ejecutar en local
 ```
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run dev
 ```
 
-### Compiles and minifies for production
+## Build
 ```
 npm run build
 ```
 
-### Preview production build
+## Preview del build
 ```
 npm run preview
 ```
 
-### Vite configuration
-See [Vite Documentation](https://vite.dev/guide/).
+## Deploy (Netlify)
+- Configurado en `netlify.toml` (build: `npm run build`, publish: `dist`).
