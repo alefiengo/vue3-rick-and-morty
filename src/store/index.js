@@ -3,46 +3,60 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     characters: [],
-    charactersFilter: []
+    statusFilter: '',
+    nameFilter: '',
+    loading: false,
+    error: null
+  },
+  getters: {
+    filteredCharacters (state) {
+      const status = state.statusFilter
+      const name = state.nameFilter.trim().toLowerCase()
+
+      return state.characters.filter(character => {
+        const matchesStatus = status ? character.status === status : true
+        const matchesName = name ? character.name.toLowerCase().includes(name) : true
+        return matchesStatus && matchesName
+      })
+    }
   },
   mutations: {
     setCharacters (state, payload) {
       state.characters = payload
     },
-    setCharactersFilter (state, payload) {
-      state.charactersFilter = payload
+    setStatusFilter (state, payload) {
+      state.statusFilter = payload
+    },
+    setNameFilter (state, payload) {
+      state.nameFilter = payload
+    },
+    setLoading (state, payload) {
+      state.loading = payload
+    },
+    setError (state, payload) {
+      state.error = payload
     }
   },
   actions: {
     async getCharacters ({ commit }) {
+      commit('setLoading', true)
+      commit('setError', null)
       try {
         const response = await fetch('https://rickandmortyapi.com/api/character/')
         const data = await response.json()
-        
+
         commit('setCharacters', data.results)
-        commit('setCharactersFilter', data.results)
       } catch (error) {
-        console.log(error)
+        commit('setError', error?.message || String(error))
+      } finally {
+        commit('setLoading', false)
       }
     },
-    filterByStatus ({ commit, state }, status) {
-      const results = state.characters.filter(character => {
-        return character.status.includes(status)
-      })
-
-      commit('setCharactersFilter', results)
+    filterByStatus ({ commit }, status) {
+      commit('setStatusFilter', status)
     },
-    filterByName ({ commit, state }, name) {
-      const formatName = name.toLowerCase()
-      const results = state.characters.filter(character => {
-        const characterName = character.name.toLowerCase()
-
-        if(characterName.includes(formatName)) {
-          return character
-        }        
-      })
-
-      commit('setCharactersFilter', results)
+    filterByName ({ commit }, name) {
+      commit('setNameFilter', name)
     }
   },
   modules: {

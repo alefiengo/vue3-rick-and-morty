@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-      <input type="text" placeholder="Search by name" v-model="name" @keyup="filter()">
+      <input type="text" placeholder="Search by name" v-model="name" @input="filter">
   </div>
 </template>
 
@@ -9,19 +9,19 @@ import { ref } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
-    setup() {
-        const store = useStore()
-        const name = ref('')
-        
-        const filter = () => {
-            store.dispatch('filterByName', name.value)
-        }
+  setup () {
+    const store = useStore()
+    const name = ref('')
 
-        return {
-            name,
-            filter
-        }
+    const filter = () => {
+      store.dispatch('filterByName', name.value)
     }
+
+    return {
+      name,
+      filter
+    }
+  }
 }
 </script>
 

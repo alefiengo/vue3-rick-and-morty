@@ -1,36 +1,38 @@
-import { useStore } from 'vuex';
 <template>
   <div class="filter">
-      <div class="item" @click="filter('')">
+      <div class="item" :class="{ active: status === '' }" @click="filter('')">
           All
       </div>
-      <div class="item" @click="filter('Alive')">
+      <div class="item" :class="{ active: status === 'Alive' }" @click="filter('Alive')">
           Alive
       </div>
-      <div class="item" @click="filter('Dead')">
+      <div class="item" :class="{ active: status === 'Dead' }" @click="filter('Dead')">
           Dead
       </div>
-      <div class="item" @click="filter('unknown')">
+      <div class="item" :class="{ active: status === 'unknown' }" @click="filter('unknown')">
           Unknown
       </div>
   </div>
 </template>
 
 <script>
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
-    setup() {
-        const store = useStore()
-        
-        const filter = (status => {
-            store.dispatch('filterByStatus', status)
-        })
+  setup () {
+    const store = useStore()
+    const status = computed(() => store.state.statusFilter)
 
-        return {
-            filter
-        }
+    const filter = (statusValue) => {
+      store.dispatch('filterByStatus', statusValue)
     }
+
+    return {
+      status,
+      filter
+    }
+  }
 }
 </script>
 
@@ -46,6 +48,9 @@ export default {
         background-color: var(--background-card);
         text-align: center;
         cursor: pointer;
+        &.active {
+            background-color: var(--text-orange);
+        }
         &:hover {
             background-color: var(--text-orange);
         }
