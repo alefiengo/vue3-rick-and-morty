@@ -13,7 +13,7 @@
 <script>
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import CardCharacter from '@/components/CardCharacter'
+import CardCharacter from '@/components/CardCharacter.vue'
 
 export default {
   components: { CardCharacter },

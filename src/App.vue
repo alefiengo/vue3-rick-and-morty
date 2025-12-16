@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import ListCharacters from '@/components/ListCharacters'
-import FilterByStatus from '@/components/FilterByStatus'
-import FilterByName from '@/components/FilterByName'
+import ListCharacters from '@/components/ListCharacters.vue'
+import FilterByStatus from '@/components/FilterByStatus.vue'
+import FilterByName from '@/components/FilterByName.vue'
 
 export default {
   name: 'App',
